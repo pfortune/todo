@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo using Vanilla JS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="box has-text-centered">
+        <div class="title">Simple Todo List</div>
+        <div class="subtitle">Fun things to do</div>
+      </div>
+
+      <div class="section box">
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">What should I do?</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Type something..."
+                />
+              </p>
+            </div>
+            <button class="button">Add Todo</button>
+          </div>
+        </div>
+      </div>
+      <div class="section box">
+        <ul></ul>
+      </div>
+    </div>
+
+    <script>
+      let todos = [];
+      let count = 0;
+      let button = document.querySelector('button');
+      let input = document.querySelector('input');
+      let ul = document.querySelector('ul');
+
+      addTodo = () => {
+        const todoText = input.value.trim();
+        if (todoText !== '') {
+          count++;
+          todos.push({ id: count, text: input.value });
+          let li = document.createElement('li');
+          li.id = `todo-${count}`;
+          li.textContent = todoText;
+          ul.appendChild(li);
+          console.log(`Adding todo ${count}`);
+          input.value = '';
+        }
+      };
+
+      button.addEventListener('click', addTodo);
+      input.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+          addTodo();
+        }
+      });
+
+      ul.addEventListener('click', (e) => {
+        if (e.target.tagName === 'LI') {
+          e.target.classList.toggle('is-done');
+        }
+      });
+
+    </script>
+
+    <style>
+        .is-done {
+            text-decoration: line-through;
+        }
+    </style>
+  </body>
+</html>
