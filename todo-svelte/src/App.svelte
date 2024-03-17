@@ -22,16 +22,39 @@
 </div>
 
 <div class="section box">
-  <div class="title is-6">Things yet to do</div>
+  <div class="title is-6">Things yet do</div>
   <table class="table is-fullwidth">
     <thead>
       <th>Task</th>
+      <th>Date</th>
+      <th></th>
     </thead>
     <tbody>
-      {#each todoItems as todoItem}
-      <tr>
-        <td>{todoItem}</td>
-      </tr>
+      {#each todoItems as todo}
+        <tr>
+          <td> {todo.text} </td>
+          <td> {todo.date} </td>
+          <td><button on:click={() => deleteTodo(todo.id)} class="button">complete</button></td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+
+<div class="section box">
+  <div class="title is-6">Things done</div>
+  <table id="done-table" class="table is-fullwidth">
+    <thead>
+      <th>Task</th>
+      <th>Date</th>
+      <th></th>
+    </thead>
+    <tbody>
+      {#each doneItems as todo}
+        <tr>
+          <td> {todo.text} </td>
+          <td> {todo.date}</td>
+        </tr>
       {/each}
     </tbody>
   </table>
@@ -40,18 +63,37 @@
 <script>
   let todoText = "";
   let todoItems = [];
+  let todo = {};
+  let doneItems = [];
 
   function addTodo() {
-    if (todoText !== "") {
-      todoItems.push(todoText);
-    todoItems = [...todoItems];
-    todoText = ""
+    todo = {
+      id: todoItems.length + 1,
+      text: todoText,
+      date: new Date().toLocaleString("en-IE"),
     }
+    if (todoText !== "") {
+      todoItems.push(todo);
+      todoItems = [...todoItems];
+      todoText = ""
+    }
+  }
+
+  function deleteTodo(id) {
+    const foundIndex = todoItems.findIndex(todo => todo.id === id);
+    if (foundIndex !== -1) {
+      const [done] = todoItems.splice(foundIndex, 1);
+      doneItems.push(done);
+      todoItems = [...todoItems];
+      doneItems = [...doneItems];
+    }
+    
   }
 
   function handleKeyDown(event) {
     if (event.key === "Enter") {
       addTodo();
+      event.preventDefault();
     }
   }
 </script>
