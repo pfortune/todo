@@ -1,6 +1,7 @@
 <script>
   import { v4 as uuidv4 } from 'uuid';
   import Title from './Title.svelte';
+  import TodoList from './TodoList.svelte';
 
   let todoText = "";
   let todoItems = [];
@@ -57,43 +58,8 @@
     </div>
   </div>
 
-  <div class="section box">
-    <div class="title is-6">Things yet to do</div>
-    <table class="table is-fullwidth">
-      <thead>
-        <th>Task</th>
-        <th>Date</th>
-        <th></th>
-      </thead>
-      <tbody>
-        {#each todoItems as todo}
-          <tr>
-            <td> {todo.text} </td>
-            <td> {todo.date} </td>
-            <td><button on:click={() => deleteTodo(todo.id)} class="button">complete</button></td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </div>
+  <TodoList items="{todoItems}" caption="Things yet to do" deleteHandler={deleteTodo} />
 
-  <div class="section box">
-    <div class="title is-6">Things done</div>
-    <table id="done-table" class="table is-fullwidth">
-      <thead>
-        <th>Task</th>
-        <th>Date</th>
-        <th></th>
-      </thead>
-      <tbody>
-        {#each doneItems as todo}
-          <tr>
-            <td> {todo.text} </td>
-            <td> {todo.date}</td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </div>
+  <TodoList items="{doneItems}" caption="Things that are done" />
 
 </div>
