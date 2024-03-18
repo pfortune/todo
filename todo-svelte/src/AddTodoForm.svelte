@@ -27,6 +27,6 @@
             <input bind:value={todoText}  on:keydown={handleKeyDown} id="todo" class="input" type="text" placeholder="Type something...">
         </p>
         </div>
-        <button  on:click={handleAddTodo} class="button">Add Todo</button>
+        <button  on:click={handleAddTodo} class="button is-info">Add Todo</button>
     </div>
 </div>
