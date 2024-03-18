@@ -18,7 +18,7 @@
             <td> {todo.text} </td>
             <td> {todo.date} </td>
             {#if deleteHandler}
-              <td> <button on:click={deleteHandler(todo.id)} class="button is-danger">Done</button> </td>
+              <td> <button on:click={() => deleteHandler(todo.id)} class="button is-danger">Done</button> </td>
             {/if}
           </tr>
         {/each}
